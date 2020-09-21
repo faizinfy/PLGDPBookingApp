@@ -1,34 +1,83 @@
-﻿
+﻿@model PLGDPBookingApp.Controllers.EventViewModel
+
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_LayoutMaster.cshtml";
 }
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-@*<div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-body">
+                        <!-- THE CALENDAR -->
+                        <div id="calendar"></div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@
+@section Scripts {
+
+    <script type="text/javascript">
+        $(function () {
+            var Calendar = FullCalendar.Calendar;
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new Calendar(calendarEl, {
+                plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                'themeSystem': 'bootstrap',
+                firstDay: 1, //The day that each week begins (Monday=1)
+                slotMinutes: 60,
+                //Random default events
+                events: "/Home/GetEvents/",
+                //editable: true,
+                //droppable: true, // this allows things to be dropped onto the calendar !!!
+                //drop: function (info) {
+                //    // is the "remove after drop" checkbox checked?
+                //    if (checkbox.checked) {
+                //        // if so, remove the element from the "Draggable Events" list
+                //        info.draggedEl.parentNode.removeChild(info.draggedEl);
+                //    }
+                //}
+            });
+
+            calendar.render();
+        });
+
+
+
+    </script>
+}

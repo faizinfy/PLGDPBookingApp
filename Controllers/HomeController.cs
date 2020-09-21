@@ -12,15 +12,46 @@ namespace PLGDPBookingApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [HttpGet]
         public ActionResult Index()
         {
             if(Request.IsAuthenticated){
-                return View();
+                return View(new EventViewModel());
             }
             else
             {
                 return RedirectToAction("Login","Account");
             }
+        }
+
+        public JsonResult GetEvents()
+        {
+            var bookings = db.Bookings.ToList();
+
+            var viewModel = new EventViewModel();
+            var events = new List<EventViewModel>();
+            DateTime start = DateTime.Today.AddDays(-14);
+            DateTime end = DateTime.Today.AddDays(-11);
+
+            foreach (Booking item in bookings)
+            {
+                events.Add(new EventViewModel()
+                {
+                    id = item.Id,
+                    title = item.purpose + "\n" + item.name + "",
+                    start = item.startdate.ToString("yyyy-MM-dd"),
+                    end = item.enddate.ToString("yyyy-MM-dd"),
+                    backgroundColor = "#00a65a",
+                    borderColor = "#00a65a",
+                    allDay = false
+                });
+
+                start = start.AddDays(7);
+                end = end.AddDays(7);
+            }
+
+
+            return Json(events.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
@@ -36,5 +67,16 @@ namespace PLGDPBookingApp.Controllers
 
             return View();
         }
+    }
+
+    public class EventViewModel
+    {
+        public Int64 id { get; set; }
+        public String title { get; set; }
+        public String start { get; set; }
+        public String end { get; set; }
+        public String backgroundColor { get; set; }
+        public String borderColor { get; set; }
+        public bool allDay { get; set; }
     }
 }
