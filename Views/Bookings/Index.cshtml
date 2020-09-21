@@ -1,0 +1,90 @@
+﻿@model IEnumerable<PLGDPBookingApp.Models.Booking>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h3 class="card-title">Senarai Tempahan Premis</h3>
+                            </div>
+                            <div class="col-md-2">
+                                <a type="button" href="/Bookings/Create" class="btn btn-sm bg-gradient-primary">Tambah Tempahan</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Nombor Telefon</th>
+                                    <th>Tempat/Lokasi</th>
+                                    <th>Tarikh/Masa Mula</th>
+                                    <th>Tarikh/Masa Tamat</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.mobileno)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.locationname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.startdate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.enddate)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
