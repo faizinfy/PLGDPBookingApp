@@ -188,6 +188,10 @@
     <Compile Include="Migrations\202009201213032_updatebooking.Designer.cs">
       <DependentUpon>202009201213032_updatebooking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009210400081_booking3.cs" />
+    <Compile Include="Migrations\202009210400081_booking3.Designer.cs">
+      <DependentUpon>202009210400081_booking3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Booking.cs" />
@@ -2046,6 +2050,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009201213032_updatebooking.resx">
       <DependentUpon>202009201213032_updatebooking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009210400081_booking3.resx">
+      <DependentUpon>202009210400081_booking3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

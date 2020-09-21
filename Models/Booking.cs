@@ -14,6 +14,11 @@ namespace PLGDPBookingApp.Models
         public DateTime startdate { get; set; }
         public DateTime enddate { get; set; }
         public string purpose { get; set; }
+        public string sector { get; set; }
+        public int noofparticipant { get; set; }
+        public bool isinternet { get; set; }
+        public bool ispasystem { get; set; }
+        public bool islcdprojector { get; set; }
 
         public DateTime createddate { get; set; }
     }

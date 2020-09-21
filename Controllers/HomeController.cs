@@ -7,6 +7,7 @@ using PLGDPBookingApp.Models;
 
 namespace PLGDPBookingApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
