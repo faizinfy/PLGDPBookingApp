@@ -18,28 +18,42 @@
     <link rel="stylesheet" href="../../themes/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    
+    <link rel="stylesheet" href="../../themes/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+    <link rel="stylesheet" href="../../themes/plugins/select2/css/select2.min.css">
+
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="../../themes/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../themes/dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="../../themes/plugins/daterangepicker/daterangepicker.css">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="../Home"><b>Sistem Tempahan Premis</b> Admin Login</a>
-        </div>
-        <!-- /.login-logo -->
-        @RenderBody()
-    </div>
-    <!-- /.login-box -->
+    @RenderBody()
+    
     <!-- jQuery -->
     <script src="../../themes/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="../../themes/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- daterangepicker -->
+    <script src="../../themes/plugins/moment/moment.min.js"></script>
+    <script src="../../themes/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="../../themes/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script src="../../themes/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="../../themes/dist/js/adminlte.min.js"></script>
+
+    <script src="../../themes/plugins/select2/js/select2.full.min.js"></script>
+
 
     @RenderSection("scripts", required: false)
 

@@ -63,6 +63,11 @@
                 slotMinutes: 60,
                 //Random default events
                 events: "/Home/GetEvents/",
+                displayEventTime: false,
+                eventClick: function (info) {
+                    //alert('Event: ' + info.event.title);
+                    window.open("/Bookings/Details/" + info.event.id);
+                }
                 //editable: true,
                 //droppable: true, // this allows things to be dropped onto the calendar !!!
                 //drop: function (info) {

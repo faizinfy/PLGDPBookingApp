@@ -108,7 +108,6 @@ namespace PLGDPBookingApp.Controllers
         }
 
         // GET: Bookings/Create
-        //[AllowAnonymous]
         public ActionResult Create()
         {
             return View();
@@ -126,7 +125,7 @@ namespace PLGDPBookingApp.Controllers
                 List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname).ToList();
                 if (check.Count > 0)
                 {
-                    ViewBag.Error = "Overlapped with " + check.Count + " booking.";
+                    ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
                     return View(booking);
                 }
                 else
@@ -135,6 +134,36 @@ namespace PLGDPBookingApp.Controllers
                     db.Bookings.Add(booking);
                     db.SaveChanges();
                     return RedirectToAction("Index");
+                }
+            }
+
+            return View(booking);
+        }
+
+        [AllowAnonymous]
+        public ActionResult CreatePublic()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreatePublic([Bind(Include = "Id,name,mobileno,locationname,startdate,enddate,purpose,sector,noofparticipant,isinternet,ispasystem,islcdprojector")] Booking booking)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname).ToList();
+                if (check.Count > 0)
+                {
+                    ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
+                    return View(booking);
+                }
+                else
+                {
+                    booking.createddate = DateTime.Now;
+                    db.Bookings.Add(booking);
+                    db.SaveChanges();
+                    ViewBag.Success = "Tempahan berjaya.";
+                    //return RedirectToAction("Index");
                 }
             }
 

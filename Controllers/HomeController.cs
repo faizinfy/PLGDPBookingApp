@@ -15,7 +15,9 @@ namespace PLGDPBookingApp.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if(Request.IsAuthenticated){
+            var randomString = Guid.NewGuid().ToString("n").Substring(0, 12);
+
+            if (Request.IsAuthenticated){
                 return View(new EventViewModel());
             }
             else
@@ -38,9 +40,9 @@ namespace PLGDPBookingApp.Controllers
                 events.Add(new EventViewModel()
                 {
                     id = item.Id,
-                    title = item.purpose + "\n" + item.name + "",
+                    title = item.purpose + "\n" + item.locationname + " - " + item.name,
                     start = item.startdate.ToString("yyyy-MM-dd"),
-                    end = item.enddate.ToString("yyyy-MM-dd"),
+                    end = item.enddate.AddDays(1).ToString("yyyy-MM-dd"),
                     backgroundColor = "#00a65a",
                     borderColor = "#00a65a",
                     allDay = false
@@ -49,7 +51,6 @@ namespace PLGDPBookingApp.Controllers
                 start = start.AddDays(7);
                 end = end.AddDays(7);
             }
-
 
             return Json(events.ToArray(), JsonRequestBehavior.AllowGet);
         }
