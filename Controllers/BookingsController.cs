@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PLGDPBookingApp.Models;
+using WebGrease;
 
 namespace PLGDPBookingApp.Controllers
 {
@@ -25,6 +26,7 @@ namespace PLGDPBookingApp.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
+
             }
         }
 
@@ -77,6 +79,8 @@ namespace PLGDPBookingApp.Controllers
                 oneaaData.Add(item.locationname);
                 oneaaData.Add(item.startdate.ToString("d MMM yyyy h:mm tt"));
                 oneaaData.Add(item.enddate.ToString("d MMM yyyy h:mm tt"));
+                oneaaData.Add("<span class='badge bg-" + getProp(item.status) + "'>" + Enum.GetName(typeof(enumStatus), item.status) + "</span>");
+
                 oneaaData.Add("<a href='" + Url.Action("Edit", new { id = item.Id }) +"'> Edit </a> | <a href='" + Url.Action("Details", new { id = item.Id }) + "'> Details </a></li>");
 
                 aaData.Add(oneaaData);
@@ -90,6 +94,31 @@ namespace PLGDPBookingApp.Controllers
                 aaData = aaData
             }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        private string getProp(enumStatus status)
+        {
+            var prop = "";
+            switch (status)
+            {
+                case enumStatus.Pending:
+                    prop = "info";
+                    break;
+                case enumStatus.Confirmed:
+                    prop = "success";
+                    break;
+                case enumStatus.Cancelled:
+                    prop = "warning";
+                    break;
+                case enumStatus.Rejected:
+                    prop = "danger";
+                    break;
+                default:
+                    prop = "primary";
+                    break;
+            }
+
+            return prop;
         }
 
         // GET: Bookings/Details/5
@@ -122,7 +151,7 @@ namespace PLGDPBookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed).ToList();
                 if (check.Count > 0)
                 {
                     ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
@@ -151,7 +180,7 @@ namespace PLGDPBookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed).ToList();
                 if (check.Count > 0)
                 {
                     ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
@@ -190,14 +219,14 @@ namespace PLGDPBookingApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,mobileno,locationname,startdate,enddate,purpose,sector,noofparticipant,isinternet,ispasystem,islcdprojector,createddate")] Booking booking)
+        public ActionResult Edit([Bind(Include = "Id,name,mobileno,locationname,startdate,enddate,purpose,sector,noofparticipant,isinternet,ispasystem,islcdprojector,createddate,status,remarks")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed && a.Id != booking.Id).ToList();
                 if (check.Count > 0)
                 {
-                    ViewBag.Error = "Overlapped with " + check.Count + " booking.";
+                    ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
                     return View(booking);
                 }
                 else

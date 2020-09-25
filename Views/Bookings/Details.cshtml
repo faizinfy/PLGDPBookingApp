@@ -97,6 +97,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <input readonly type="text" class="form-control" name="status" placeholder="Status" value="@Enum.GetName(typeof(PLGDPBookingApp.Models.enumStatus), Model.status)">
+                            </div>
+                            <div class="form-group">
+                                <label>Nota</label>
+                                <textarea readonly class="form-control" name="remarks" placeholder="Nota" rows="5">@Model.remarks</textarea>
+                            </div>
                         </div>
                     </form>
                 </div>

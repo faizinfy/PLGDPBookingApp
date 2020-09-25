@@ -43,8 +43,8 @@ namespace PLGDPBookingApp.Controllers
                     title = item.purpose + "\n" + item.locationname + " - " + item.name,
                     start = item.startdate.ToString("yyyy-MM-dd"),
                     end = item.enddate.AddDays(1).ToString("yyyy-MM-dd"),
-                    backgroundColor = "#00a65a",
-                    borderColor = "#00a65a",
+                    backgroundColor = getColor(item.status),
+                    borderColor = getColor(item.status),
                     allDay = false
                 });
 
@@ -53,6 +53,31 @@ namespace PLGDPBookingApp.Controllers
             }
 
             return Json(events.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        private string getColor(enumStatus status)
+        {
+            var color = "";
+            switch (status)
+            {
+                case enumStatus.Pending:
+                    color = "#0073b7";
+                    break;
+                case enumStatus.Confirmed:
+                    color = "#00a65a";
+                    break;
+                case enumStatus.Cancelled:
+                    color = "#f39c12";
+                    break;
+                case enumStatus.Rejected:
+                    color = "#f56954";
+                    break;
+                default:
+                    color = "#00c0ef";
+                    break;
+            }
+
+            return color;
         }
 
         public ActionResult About()

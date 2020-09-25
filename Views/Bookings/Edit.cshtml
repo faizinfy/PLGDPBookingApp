@@ -97,6 +97,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control select2" style="width: 100%;" name="status" placeholder="Status">
+                                    <option value=""></option>
+                                    <option value="0" @(Model.status == PLGDPBookingApp.Models.enumStatus.Pending ? "selected" : "")>Pending</option>
+                                    <option value="1" @(Model.status == PLGDPBookingApp.Models.enumStatus.Confirmed ? "selected" : "")>Confirmed</option>
+                                    <option value="2" @(Model.status == PLGDPBookingApp.Models.enumStatus.Cancelled ? "selected" : "")>Cancelled</option>
+                                    <option value="3" @(Model.status == PLGDPBookingApp.Models.enumStatus.Rejected ? "selected" : "")>Rejected</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nota</label>
+                                <textarea class="form-control" name="remarks" placeholder="Nota" rows="5">@Model.remarks</textarea>
+                            </div>
                         </div>
 
                         <div class="card-footer">
@@ -203,8 +217,8 @@
             $('input[name="testdate"]').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('DD MMM YYYY hh:mm A') + ' - ' + picker.endDate.format('DD MMM YYYY hh:mm A'));
 
-                document.getElementById('startdate').value = picker.startDate.format('DD MMM YYYY hh:mm A') ;
-                document.getElementById('enddate').value = picker.endDate.format('DD MMM YYYY hh:mm A') ;
+                document.getElementById('startdate').value = picker.startDate.format('DD MMM YYYY hh:mm A');
+                document.getElementById('enddate').value = picker.endDate.format('DD MMM YYYY hh:mm A');
             });
 
             $('input[name="testdate"]').on('cancel.daterangepicker', function (ev, picker) {

@@ -19,7 +19,16 @@ namespace PLGDPBookingApp.Models
         public bool isinternet { get; set; }
         public bool ispasystem { get; set; }
         public bool islcdprojector { get; set; }
-
+        public enumStatus status { get; set; }
+        public string remarks { get; set; }
         public DateTime createddate { get; set; }
+    }
+
+    public enum enumStatus
+    {
+        Pending = 0,
+        Confirmed = 1,
+        Cancelled = 2,
+        Rejected = 3
     }
 }
