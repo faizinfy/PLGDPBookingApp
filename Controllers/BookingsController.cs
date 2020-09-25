@@ -46,10 +46,10 @@ namespace PLGDPBookingApp.Controllers
             var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
             var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
 
-            //if (sortColumnIndex == 3)
-            //{
-            //    bookings = sortDirection == "asc" ? bookings.OrderBy(c => c.Age) : bookings.OrderByDescending(c => c.Age);
-            //}
+            if (sortColumnIndex == 3)
+            {
+                bookings = sortDirection == "asc" ? bookings.OrderBy(c => c.startdate).ToList() : bookings.OrderByDescending(c => c.startdate).ToList();
+            }
             //else if (sortColumnIndex == 4)
             //{
             //    bookings = sortDirection == "asc" ? bookings.OrderBy(c => c.StartDate) : bookings.OrderByDescending(c => c.StartDate);
