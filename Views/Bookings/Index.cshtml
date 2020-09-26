@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div>
@@ -34,7 +34,7 @@
                                 <h3 class="card-title">Senarai Tempahan Premis</h3>
                             </div>
                             <div class="col-md-2">
-                                <a type="button" href="/Bookings/Create" class="btn btn-sm bg-gradient-primary">Tambah Tempahan</a>
+                                <a type="button" href="@Url.Action("Create","Bookings")" class="btn btn-sm bg-gradient-primary">Tambah Tempahan</a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
     function bindDatatable() {
         datatable = $('#tblBooking')
             .DataTable({
-                "sAjaxSource": "/Bookings/GetData",
+                "sAjaxSource": "@Url.Action("Bookings","GetData")",
                 "bServerSide": true,
                 "bProcessing": true,
                 "bSearchable": true,

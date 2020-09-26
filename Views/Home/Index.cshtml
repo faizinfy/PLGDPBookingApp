@@ -25,7 +25,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div>
@@ -73,11 +73,11 @@
                 firstDay: 1, //The day that each week begins (Monday=1)
                 slotMinutes: 60,
                 //Random default events
-                events: "/Home/GetEvents/",
+                events: "@Url.Action("Home","GetEvents")",
                 displayEventTime: false,
                 eventClick: function (info) {
                     //alert('Event: ' + info.event.title);
-                    window.open("/Bookings/Details/" + info.event.id);
+                    window.open("@Url.Action("Details", "Bookings")/" + info.event.id);
                 }
                 //editable: true,
                 //droppable: true, // this allows things to be dropped onto the calendar !!!
