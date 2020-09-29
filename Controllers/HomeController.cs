@@ -15,8 +15,6 @@ namespace PLGDPBookingApp.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var randomString = Guid.NewGuid().ToString("n").Substring(0, 12);
-
             if (Request.IsAuthenticated){
                 return View(new EventViewModel());
             }

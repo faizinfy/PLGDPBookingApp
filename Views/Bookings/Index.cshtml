@@ -30,11 +30,14 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-8">
                                 <h3 class="card-title">Senarai Tempahan Premis</h3>
                             </div>
                             <div class="col-md-2">
                                 <a type="button" href="@Url.Action("Create","Bookings")" class="btn btn-sm bg-gradient-primary">Tambah Tempahan</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a type="button" href="@Url.Action("checkBooking","Bookings")" class="btn btn-sm bg-gradient-success">Semak Tempahan</a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +115,7 @@
     function bindDatatable() {
         datatable = $('#tblBooking')
             .DataTable({
-                "sAjaxSource": "@Url.Action("Bookings","GetData")",
+                "sAjaxSource": "@Url.Action("GetData", "Bookings")",
                 "bServerSide": true,
                 "bProcessing": true,
                 "bSearchable": true,

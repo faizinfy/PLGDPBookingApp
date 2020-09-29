@@ -73,7 +73,7 @@
                 firstDay: 1, //The day that each week begins (Monday=1)
                 slotMinutes: 60,
                 //Random default events
-                events: "@Url.Action("Home","GetEvents")",
+                events: "@Url.Action("GetEvents", "Home")",
                 displayEventTime: false,
                 eventClick: function (info) {
                     //alert('Event: ' + info.event.title);

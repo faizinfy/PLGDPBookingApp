@@ -15,6 +15,7 @@ namespace PLGDPBookingApp.Controllers
     public class BookingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        int numberOfBookingExist = 0;
 
         // GET: Bookings
         public ActionResult Index()
@@ -151,7 +152,7 @@ namespace PLGDPBookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && (a.status == enumStatus.Confirmed || a.status == enumStatus.Pending)).ToList();
                 if (check.Count > 0)
                 {
                     ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
@@ -160,6 +161,7 @@ namespace PLGDPBookingApp.Controllers
                 else
                 {
                     booking.createddate = DateTime.Now;
+                    booking.bookingNo = Guid.NewGuid().ToString("n").Substring(0, 8);
                     db.Bookings.Add(booking);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -180,7 +182,7 @@ namespace PLGDPBookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && (a.status == enumStatus.Confirmed || a.status == enumStatus.Pending)).ToList();
                 if (check.Count > 0)
                 {
                     ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
@@ -189,10 +191,10 @@ namespace PLGDPBookingApp.Controllers
                 else
                 {
                     booking.createddate = DateTime.Now;
+                    booking.bookingNo = Guid.NewGuid().ToString("n").Substring(0, 8);
                     db.Bookings.Add(booking);
                     db.SaveChanges();
                     ViewBag.Success = "Tempahan berjaya.";
-                    //return RedirectToAction("Index");
                 }
             }
 
@@ -223,7 +225,7 @@ namespace PLGDPBookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && a.status == enumStatus.Confirmed && a.Id != booking.Id).ToList();
+                List<Booking> check = db.Bookings.Where(a => a.startdate <= booking.enddate && a.enddate >= booking.startdate && a.locationname == booking.locationname && (a.status == enumStatus.Confirmed || a.status == enumStatus.Pending) && a.Id != booking.Id).ToList();
                 if (check.Count > 0)
                 {
                     ViewBag.Error = "Bertindih dengan " + check.Count + " tempahan lain.";
@@ -263,6 +265,41 @@ namespace PLGDPBookingApp.Controllers
             db.Bookings.Remove(booking);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult checkBooking()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult checkBooking(DateTime startdate, DateTime enddate, string locationname)
+        {
+            if (isBookingExist(startdate,enddate,locationname) == true)
+            {
+                ViewBag.Error = "Bertindih dengan " + numberOfBookingExist + " tempahan lain.";
+            }
+            else
+            {
+                ViewBag.Success = "Tiada tempahan.";
+            }
+
+            return View();
+        }
+
+        public bool isBookingExist(DateTime startdate, DateTime enddate, string locationname)
+        {
+            bool isExist = false;
+
+            List<Booking> check = db.Bookings.Where(a => a.startdate <= enddate && a.enddate >= startdate && a.locationname == locationname && a.status == enumStatus.Confirmed).ToList();
+            numberOfBookingExist = check.Count;
+            if (numberOfBookingExist > 0)
+            {
+                isExist = true;
+            }
+
+            return isExist;
         }
 
         protected override void Dispose(bool disposing)

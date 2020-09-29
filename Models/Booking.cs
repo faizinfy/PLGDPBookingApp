@@ -21,6 +21,7 @@ namespace PLGDPBookingApp.Models
         public bool islcdprojector { get; set; }
         public enumStatus status { get; set; }
         public string remarks { get; set; }
+        public string bookingNo { get; set; }
         public DateTime createddate { get; set; }
     }
 

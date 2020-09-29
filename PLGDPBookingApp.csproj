@@ -196,6 +196,10 @@
     <Compile Include="Migrations\202009250446453_status.Designer.cs">
       <DependentUpon>202009250446453_status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009291420016_bookingno.cs" />
+    <Compile Include="Migrations\202009291420016_bookingno.Designer.cs">
+      <DependentUpon>202009291420016_bookingno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Booking.cs" />
@@ -2030,6 +2034,7 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_LayoutMaster.cshtml" />
     <Content Include="Views\Bookings\CreatePublic.cshtml" />
+    <Content Include="Views\Bookings\checkBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2062,6 +2067,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009250446453_status.resx">
       <DependentUpon>202009250446453_status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009291420016_bookingno.resx">
+      <DependentUpon>202009291420016_bookingno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
